@@ -1,0 +1,27 @@
+{
+    "name": "symandy/mapped-resource",
+    "description": "Set of reusable resource interfaces and traits mapped by Doctrine attributes",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Samaël Villette",
+            "email": "villette.samael@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Symandy\\Component\\Resource\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Symandy\\Tests\\Component\\Resource\\": "tests/"
+        }
+    },
+    "require": {},
+    "require-dev": {},
+    "replace": {
+        "symandy/resource": "self.version"
+    }
+}
