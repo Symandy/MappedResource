@@ -12,6 +12,7 @@ use Symandy\Component\Resource\Model\ResourceTrait;
 use Symandy\Component\Resource\Model\SlugAwareTrait;
 use Symandy\Component\Resource\Model\TimestampableTrait;
 use Symandy\Component\Resource\Model\ToggleableTrait;
+use Symandy\Component\Resource\Model\VersionedTrait;
 
 #[Entity]
 #[Table(name: "posts")]
@@ -22,6 +23,7 @@ class Post implements PostInterface
     use CodeAwareTrait;
     use SlugAwareTrait;
     use ToggleableTrait;
+    use VersionedTrait;
     use TimestampableTrait;
     use ArchivableTrait;
 

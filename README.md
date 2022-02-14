@@ -27,6 +27,7 @@ Each interface have a corresponding trait and contains one or several attributes
 functions.
 - `CodeAwareInterface` / `CodeAwareTrait` => string `$code` + getter and setter.
 - `SlugAwareInterface` / `SlugAwareTrait` => string `$slug` + getter and setter.
+- `VersionedInterface` / `VersionedTrait` => int `$version` + getter + setter
 
 
 Each trait contains mapping information with attributes. If you are using XML or YAML driver, you have to redefine the mapping for each property (in each entity).
