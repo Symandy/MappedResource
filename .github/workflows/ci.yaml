@@ -1,0 +1,39 @@
+name: CI
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+
+jobs:
+    ci:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                php-versions:
+                    - 8.0
+                    - 8.1
+        steps:
+            -   uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php-versions }}
+                    extensions: pdo_sqlite
+
+            -   uses: actions/checkout@v2
+
+            -   name: Cache Composer packages
+                if: ${{ !env.ACT }}
+                id: composer-cache
+                uses: actions/cache@v2
+                with:
+                    path: vendor
+                    key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+                    restore-keys: |
+                        ${{ runner.os }}-php-
+
+            -   name: Install Dependencies
+                run: composer update -q --no-ansi --no-interaction --no-progress
+
+            -   name: Execute tests (Unit tests) via PHPUnit
+                run: composer run-script test
