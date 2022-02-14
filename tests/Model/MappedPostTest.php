@@ -85,6 +85,34 @@ class MappedPostTest extends TestCase
         self::assertCount(1, $posts);
     }
 
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function testPostIsPersistedWithData(): void
+    {
+        $post = new Post();
+        $post->create();
+        $post->archive();
+        $post->disable();
+        $post->setCode('rsc-1');
+        $post->setSlug('resource-1');
+
+        $this->entityManager->persist($post);
+        $this->entityManager->flush();
+
+        $this->entityManager->refresh($post);
+
+        self::assertSame(1, $post->getId());
+        self::assertNotNull($post->getCreatedAt());
+        self::assertNotNull($post->getUpdatedAt());
+        self::assertNotNull($post->getArchivedAt());
+        self::assertFalse($post->isEnabled());
+        self::assertSame('rsc-1', $post->getCode());
+        self::assertSame('resource-1', $post->getSlug());
+        self::assertSame(1, $post->getVersion());
+    }
+
     protected function tearDown(): void
     {
         $schemaTool = new SchemaTool($this->entityManager);
