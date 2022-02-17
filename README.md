@@ -18,16 +18,19 @@ The components are stored in `Symandy\Component\Resource\Model` namespace.
 
 Each interface have a corresponding trait and contains one or several attributes :
 
-- `ResourceInterface` / `ResourceTrait` => int `$id` + getter.
-- `TimestampableInterface` / `TimestampableTrait` => datetime `$createdAt`, `$updatedAt`, getters + setters and 
-`create()` and `update()` functions which set the current datetime to the corresponding attribute.
-- `ArchivableInterface` / `ArchivableTrait` => datetime `$archivedAt`, getter and setter and `archive()` function 
-(set `$archivedAt` to current datetime) and `restore()` function (set  `$archivedAt` to `null`).
-- `ToggleableInterface` / `ToggleableTrait` => boolean `$enabled`, getter and setter with `enable()`, `disable()` 
-functions.
-- `CodeAwareInterface` / `CodeAwareTrait` => string `$code` + getter and setter.
-- `SlugAwareInterface` / `SlugAwareTrait` => string `$slug` + getter and setter.
-- `VersionedInterface` / `VersionedTrait` => int `$version` + getter + setter
+| Name (trait + interface)                           | Property    | Mapped column | Methods                                                                                |
+|----------------------------------------------------|-------------|---------------|----------------------------------------------------------------------------------------|
+| Resource                                           | $id         | id            | getId()                                                                                |
+| Creatable                                          | $createdAt  | created_at    | getCreatedAt() <br/> setCreatedAt(?\DateTimeInterface)<br/> create()                   |
+| Updatable                                          | $updatedAt  | updated_at    | getUpdatedAt() <br/> setUpdatedAt(?\DateTimeInterface)<br/> update()                   |
+| Timestampable<br/> (extends Creatable & Updatable) | -           | -             | -                                                                                      |
+| Archivable                                         | $archivedAt | archived_at   | getArchivedAt() <br/> setArchivedAt(?\DateTimeInterface)<br/> archive()<br/> restore() |
+| Toggleable                                         | $enabled    | enabled       | isEnabled() <br/> setEnabled(bool)<br/> enable()<br/> disable()                        |
+| CodeAware                                          | $code       | code          | getCode() <br/> setCode(?string)                                                       |
+| SlugAware                                          | $slug       | slug          | getSlug() <br/> setSlug(?string)                                                       |
+| Versioned                                          | $version    | version       | getVersion() <br/> setVersion(?int)                                                    |
+
+
 
 
 Each trait contains mapping information with attributes. If you are using XML or YAML driver, you have to redefine the mapping for each property (in each entity).
