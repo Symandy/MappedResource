@@ -29,6 +29,9 @@ Each interface have a corresponding trait and contains one or several attributes
 | CodeAware                                          | $code       | code          | getCode() <br/> setCode(?string)                                                       |
 | SlugAware                                          | $slug       | slug          | getSlug() <br/> setSlug(?string)                                                       |
 | Versioned                                          | $version    | version       | getVersion() <br/> setVersion(?int)                                                    |
+| Startable                                          | $startsAt   | starts_at     | getStartsAt() <br/> setStartsAt(?\DateTimeInterface)                                   |
+| Endable                                            | $endsAt     | ends_at       | getEndsAt() <br/> setEndsAt(?\DateTimeInterface)                                       |
+| PeriodAware<br/>(extends Startable & Endable)      | -           | -             |
 
 
 
