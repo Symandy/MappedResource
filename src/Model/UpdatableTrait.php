@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Symandy\Component\Resource\Model;
 
-use DateTime;
+use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping\Column;
+
+use function time;
 
 trait UpdatableTrait
 {
@@ -26,7 +28,7 @@ trait UpdatableTrait
 
     public function update(): void
     {
-        $this->setUpdatedAt(new DateTime());
+        $this->setUpdatedAt(DateTimeImmutable::createFromFormat('U', (string) time()));
     }
 
 }
