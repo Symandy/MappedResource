@@ -11,7 +11,7 @@ trait StartableTrait
 {
 
     #[Column(name: "starts_at", type: "datetime", nullable: true)]
-    private ?DateTimeInterface $startsAt = null;
+    protected ?DateTimeInterface $startsAt = null;
 
     public function getStartsAt(): ?DateTimeInterface
     {
