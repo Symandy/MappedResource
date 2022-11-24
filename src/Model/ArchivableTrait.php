@@ -6,8 +6,10 @@ namespace Symandy\Component\Resource\Model;
 
 use DateTimeImmutable;
 use DateTimeInterface;
+use DateTimeZone;
 use Doctrine\ORM\Mapping\Column;
 
+use function date_default_timezone_get;
 use function time;
 
 trait ArchivableTrait
@@ -26,9 +28,12 @@ trait ArchivableTrait
         $this->archivedAt = $archivedAt;
     }
 
-    public function archive(): void
+    public function archive(DateTimeZone $timezone = null): void
     {
-        $this->setArchivedAt(DateTimeImmutable::createFromFormat('U', (string) time()));
+        $timezone ??= new DateTimeZone(date_default_timezone_get());
+        $archivedAt = DateTimeImmutable::createFromFormat('U', (string) time());
+
+        $this->setArchivedAt($archivedAt->setTimezone($timezone));
     }
 
     public function restore(): void
