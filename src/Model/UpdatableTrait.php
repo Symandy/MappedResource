@@ -6,8 +6,10 @@ namespace Symandy\Component\Resource\Model;
 
 use DateTimeImmutable;
 use DateTimeInterface;
+use DateTimeZone;
 use Doctrine\ORM\Mapping\Column;
 
+use function date_default_timezone_get;
 use function time;
 
 trait UpdatableTrait
@@ -26,9 +28,12 @@ trait UpdatableTrait
         $this->updatedAt = $updatedAt;
     }
 
-    public function update(): void
+    public function update(DateTimeZone $timezone = null): void
     {
-        $this->setUpdatedAt(DateTimeImmutable::createFromFormat('U', (string) time()));
+        $timezone ??= new DateTimeZone(date_default_timezone_get());
+        $updatedAt = DateTimeImmutable::createFromFormat('U', (string) time());
+
+        $this->setUpdatedAt($updatedAt->setTimezone($timezone));
     }
 
 }
